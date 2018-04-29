@@ -12,10 +12,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.gamer.cs_v3.Model.Game;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class Activity_Main extends AppCompatActivity {
     LinearLayout content;
@@ -33,8 +36,21 @@ public class Activity_Main extends AppCompatActivity {
         textView.setText("Test");
         content.addView(textView);
 
+
         String url = "https://api.pandascore.co/videogames?token=PUbBYoQNl8UBcjZ0nvOHSPbJEGMEHtV75-437VksZ2bsKdNOb34";
 
+        DataProvider data = new DataProvider(this, url);
+        ArrayList<Game> games = data.getGames();
+
+        for (int i = 0; i < games.size(); i++) {
+            TextView txt = new TextView(this);
+            txt.setText(data.getGames().get(i).getName());
+            content.addView(txt);
+            Log.e("RESPONSE", data.getGames().toString());
+        }
+
+
+        /*
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 url,
@@ -72,6 +88,6 @@ public class Activity_Main extends AppCompatActivity {
 
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
-
+        */
     }
 }
