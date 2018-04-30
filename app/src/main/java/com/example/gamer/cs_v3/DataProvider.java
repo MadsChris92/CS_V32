@@ -1,13 +1,16 @@
 package com.example.gamer.cs_v3;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.gamer.cs_v3.Model.Game;
+import com.example.gamer.cs_v3.Model.OWMatch;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,16 +19,14 @@ import java.util.ArrayList;
 
 public class DataProvider  {
     Context context;
-    String url;
 
-    public DataProvider(Context context, String url){
+
+    public DataProvider(Context context){
         this.context = context;
-        this.url = url;
+        //this.url = url;
     }
 
-    public void showGames() {
-        //String url = "https://api.pandascore.co/videogames?token=PUbBYoQNl8UBcjZ0nvOHSPbJEGMEHtV75-437VksZ2bsKdNOb34";
-        ArrayList<Game> games = new ArrayList<>();
+    public void getResponse(String url, int type) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 url,
@@ -33,24 +34,46 @@ public class DataProvider  {
                 response -> {
                     try {
                         for (int i = 0; i < response.length(); i++) {
-                            JSONObject game = response.getJSONObject(i);
+                            JSONObject jsonObject = response.getJSONObject(i);
 
-                            Game g = new Game();
-                            g.setId(game.getInt("id"));
-                            g.setName(game.getString("name"));
-                            games.add(g);
+                            // games
+                            if(type == 0){
+                                Game g = new Game();
+                                g.setId(jsonObject.getInt("id"));
+                                g.setName(jsonObject.getString("name"));
 
-                            TextView t = new TextView(context);
+                                LinearLayout linearLayout = new LinearLayout(context);
+                                TextView t = new TextView(context);
+                                t.setText(g.getName());
+                                t.setOnClickListener(e -> textClick(g.getId()));
 
+                                formatTextview(t, "head");
+                                //Activity_Main.content.addView(t);
+                            }
 
-                            t.setTextSize(20);
-                            t.setText("ID: "+ g.getId() + " Name:" + g.getName());
-                            t.setOnClickListener(e -> textClick(g.getId()));
+                            // overwatch matches
+                            if(type == 1) {
+                                JSONObject league = response.getJSONObject(i).getJSONObject("league");
+                                JSONObject tournament = response.getJSONObject(i).getJSONObject("tournament");
 
-                            Activity_Main.content.addView(t);
+                                OWMatch match = new OWMatch();
+                                match.setId(jsonObject.getInt("id"));
+                                match.setName(jsonObject.getString("name"));
+                                match.setTime(jsonObject.getString("begin_at"));
+                                match.setTournament(tournament.getString("name"));
+                                match.setLeague(league.getString("name"));
+
+                                LinearLayout linearLayout = new LinearLayout(context);
+                                TextView textView = new TextView(context);
+                                textView.setText(match.getName());
+                                TextView subtext = new TextView(context);
+                                subtext.setText(match.infoToString());
+
+                                formatTextview(textView, "head");
+                                formatTextview(subtext, "sub");
+                            }
+                            Log.e("Object", jsonObject.toString());
                         }
-                        Log.e("Array",games.size() + " ");
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -59,13 +82,40 @@ public class DataProvider  {
                     Log.e("Volley", "Response error");
                 }
         );
-
         MySingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
     }
 
     private void textClick(int id) {
-        Toast.makeText(context, id + "", Toast.LENGTH_LONG).show();
+        Activity_Main.content.removeAllViews();
+
+        if(id == 14) {
+            getResponse("https://api.pandascore.co/ow/matches/upcoming?page=1&token=PUbBYoQNl8UBcjZ0nvOHSPbJEGMEHtV75-437VksZ2bsKdNOb34", 1);
+        } else if (id == 1) {
+            getResponse("https://api.pandascore.co/lol/matches/upcoming?page=1&token=PUbBYoQNl8UBcjZ0nvOHSPbJEGMEHtV75-437VksZ2bsKdNOb34", 1);
+        }else {
+            Toast.makeText(context, "Not available", Toast.LENGTH_LONG).show();
+        }
     }
 
+    private void formatTextview(TextView textView, String type) {
 
+        if(type.equalsIgnoreCase("category")) {
+            textView.setTextSize(20);
+            textView.setTextColor(Color.WHITE);
+            textView.setPadding(0,0,0,50);
+        }
+
+        if(type.equalsIgnoreCase("head")) {
+            textView.setTextSize(20);
+            textView.setTextColor(Color.WHITE);
+        }
+
+        if(type.equalsIgnoreCase("sub")) {
+            textView.setTextSize(12);
+            textView.setTextColor(Color.GRAY);
+            textView.setPadding(0,0,0,50);
+        }
+
+        Activity_Main.content.addView(textView);
+    }
 }

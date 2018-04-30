@@ -8,62 +8,64 @@
 
     <LinearLayout
         android:id="@+id/menu_top"
-        android:layout_width="382dp"
-        android:layout_height="78dp"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/black"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/button_home"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
-            android:layout_height="88dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button"
+            android:text="Home"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button11"
+            android:id="@+id/button_profile"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
-            android:layout_height="88dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button"
+            android:text="Pro"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/button_settings"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
-            android:layout_height="88dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button"
+            android:text="Set"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/button_info"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
-            android:layout_height="88dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button"
+            android:text="Info"
             android:textSize="18sp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
     <ScrollView
-        android:layout_width="366dp"
-        android:layout_height="528dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +80,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:gravity="top"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

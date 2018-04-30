@@ -23,7 +23,8 @@ public class Activity_Main extends AppCompatActivity {
 
         String url = "https://api.pandascore.co/videogames?token=PUbBYoQNl8UBcjZ0nvOHSPbJEGMEHtV75-437VksZ2bsKdNOb34";
 
-        DataProvider data = new DataProvider(this, url);
-        data.showGames();
+        DataProvider data = new DataProvider(this);
+        data.getResponse(url, 0);
+
     }
 }
