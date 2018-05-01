@@ -8,10 +8,8 @@
 
     <LinearLayout
         android:id="@+id/menu_top"
-        android:layout_width="363dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="0dp"
+        android:layout_height="66dp"
         android:background="@android:color/black"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,6 +23,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Home"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -35,6 +34,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Pro"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -45,6 +45,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Set"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -55,6 +56,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Info"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="18sp"
             android:textStyle="bold" />
 
